@@ -31,7 +31,6 @@ public:
 	void setSpeed(float);
 	float getMaxSpeed();
 	float getMinNPCSpeed();
-	void setVelocity(sf::Vector2f);
 
 private:
 
@@ -49,7 +48,6 @@ private:
 	float m_rotSpeed;
 	float m_minSpeed;
 	float m_maxSpeed;
-	float delta;
 
 	sf::Vector2f m_position;
 

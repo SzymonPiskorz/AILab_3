@@ -22,7 +22,7 @@ void ArriveBehaviour::update(Ship* ship, float t_delaTime)
 			}
 
 			velocity /= sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
-			velocity *= ship->getMaxSpeed() * t_delaTime;
+			velocity *= ship->getMaxSpeed();
 
 			sf::Vector2f dir = velocity - ship->getVelocity();
 			dir /= m_timeToTarget;
@@ -30,10 +30,9 @@ void ArriveBehaviour::update(Ship* ship, float t_delaTime)
 			if (sqrt((dir.x * dir.x) + (dir.y * dir.y)) < ship->getMaxSpeed())
 			{
 				dir /= sqrt((dir.x * dir.x) + (dir.y * dir.y));
-				dir *= ship->getMaxSpeed() * t_delaTime;
+				dir *= ship->getMaxSpeed();
 			}
 
-			ship->setVelocity(dir);
 			ship->setRotation(atan2f(dir.y, dir.x) * (180.0f / 3.14f));
 		}
 	}
