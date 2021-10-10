@@ -2,9 +2,6 @@
 
 void SeekBehaviour::update(Ship* ship, float t_delaTime)
 {
-	//	velocity *= maxSpeed;
-
-	//	movement = velocity;
 
 	sf::Vector2f dist = ship->getTargetPos()->getPosition() - ship->getPosition();
 
