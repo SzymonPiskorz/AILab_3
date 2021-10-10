@@ -6,10 +6,12 @@ Game::Game() :
 	m_exitGame{ false },
 	m_player{ 0.0f, 5.0f, 0.5f, 1.0f, new ControllerBehaviour, sf::Vector2f(500.0f, 500.0f)},
 	m_wanderNPC{ 200.0f, 5.0f, 1.0f, 2.0f, new WanderBehaviour, sf::Vector2f(250.0f, 250.0f)},
-	m_seekerNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)}
+	m_seekerNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)},
+	m_arriveNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f)}
 {
 	setupFontAndText(); // load font 
 	m_seekerNPC.setTargetPos(&m_player);
+	m_arriveNPC.setTargetPos(&m_player);
 }
 
 /// <summary>
@@ -94,6 +96,7 @@ void Game::update(sf::Time t_deltaTime)
 	m_player.update(t_deltaTime.asSeconds());
 	m_wanderNPC.update(t_deltaTime.asSeconds());
 	m_seekerNPC.update(t_deltaTime.asSeconds());
+	m_arriveNPC.update(t_deltaTime.asSeconds());
 
 }
 
@@ -106,6 +109,7 @@ void Game::render()
 	m_window.draw(m_player);
 	m_window.draw(m_wanderNPC);
 	m_window.draw(m_seekerNPC);
+	m_window.draw(m_arriveNPC);
 	m_window.display();
 }
 

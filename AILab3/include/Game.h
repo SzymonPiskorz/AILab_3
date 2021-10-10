@@ -12,6 +12,7 @@
 #include "ControllerBehaviour.h"
 #include "WanderBehaviour.h"
 #include "SeekBehaviour.h"
+#include "ArriveBehaviour.h"
 
 class Game
 {
@@ -42,6 +43,7 @@ private:
 	Ship m_player;
 	Ship m_wanderNPC;
 	Ship m_seekerNPC;
+	Ship m_arriveNPC;
 };
 
 #endif // !GAME_HPP

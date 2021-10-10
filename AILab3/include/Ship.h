@@ -28,6 +28,11 @@ public:
 	Ship* getTargetPos() const;
 	void setTargetPos(Ship*);
 
+	void setSpeed(float);
+	float getMaxSpeed();
+	float getMinNPCSpeed();
+	void setVelocity(sf::Vector2f);
+
 private:
 
 	virtual void draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const;
@@ -44,6 +49,7 @@ private:
 	float m_rotSpeed;
 	float m_minSpeed;
 	float m_maxSpeed;
+	float delta;
 
 	sf::Vector2f m_position;
 

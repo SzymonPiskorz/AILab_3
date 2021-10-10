@@ -20,6 +20,7 @@ void Ship::update(float t_deltaTime)
 
 	m_sprite.move(sf::Vector2f(m_velocity.x * m_speed * t_deltaTime, m_velocity.y * m_speed * t_deltaTime));
 
+	delta = t_deltaTime;
 	handleBoundry();
 }
 
@@ -76,6 +77,26 @@ void Ship::setRotation(float t_rot)
 void Ship::setTargetPos(Ship* t_targetPos)
 {
 	m_targetPos = t_targetPos;
+}
+
+void Ship::setSpeed(float t_speed)
+{
+	m_speed = t_speed;
+}
+
+float Ship::getMaxSpeed()
+{
+	return m_maxSpeed;
+}
+
+float Ship::getMinNPCSpeed()
+{
+	return 0.0f;
+}
+
+void Ship::setVelocity(sf::Vector2f t_velocity)
+{
+	m_velocity = t_velocity * delta;
 }
 
 Ship* Ship::getTargetPos() const
