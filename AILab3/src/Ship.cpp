@@ -16,6 +16,7 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 
 void Ship::update(float t_deltaTime)
 {
+	m_shipName.setPosition(getPosition() + sf::Vector2f(20, 20));
 	m_behaviour->update(this, t_deltaTime);
 
 	m_sprite.move(sf::Vector2f(m_velocity.x * m_speed * t_deltaTime, m_velocity.y * m_speed * t_deltaTime));
@@ -101,6 +102,7 @@ Ship* Ship::getTargetPos() const
 
 void Ship::draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const
 {
+	t_target.draw(m_shipName, t_states);
 	t_target.draw(m_sprite, t_states);
 }
 
@@ -137,4 +139,25 @@ void Ship::setTexture(int t_shipNum)
 	}
 	m_sprite.setTexture(m_texture);
 	m_sprite.setOrigin(40.0f, 41.0f);
+}
+
+void Ship::setupFontAndText(std::string t_string)
+{
+	if (!m_ArialBlackfont.loadFromFile("Assets\\fonts\\ariblk.ttf"))
+	{
+		std::cout << "problem loading arial black font" << std::endl;
+	}
+
+	m_shipName.setFont(m_ArialBlackfont);
+	m_shipName.setString(t_string);
+	m_shipName.setPosition(getPosition()+sf::Vector2f(20, 20));
+	m_shipName.setCharacterSize(24U);
+	m_shipName.setOutlineColor(sf::Color::White);
+	m_shipName.setFillColor(sf::Color::Black);
+	m_shipName.setOutlineThickness(3.0f);
+}
+
+void Ship::setVisionCone()
+{
+
 }

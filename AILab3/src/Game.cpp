@@ -17,6 +17,13 @@ Game::Game() :
 	m_arriveFastNPC.setTargetPos(&m_player);
 	m_pursueNPC.setTargetPos(&m_player);
 
+	m_player.setupFontAndText("Player");
+	m_wanderNPC.setupFontAndText("Wander");
+	m_seekerNPC.setupFontAndText("Seeker");
+	m_arriveSlowNPC.setupFontAndText("Arrive Slow");
+	m_arriveFastNPC.setupFontAndText("Arrive Fast");
+	m_pursueNPC.setupFontAndText("Pursue");
+
 	ships.push_back(m_wanderNPC);
 	ships.push_back(m_seekerNPC);
 	ships.push_back(m_arriveSlowNPC);
@@ -102,6 +109,8 @@ void Game::processKeys(sf::Event t_event)
 		m_shipEnabled = 3;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
 		m_shipEnabled = 4;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
+		m_shipEnabled = 5;
 }
 
 /// <summary>
@@ -115,12 +124,17 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	m_player.update(t_deltaTime.asSeconds());
-	/*m_wanderNPC.update(t_deltaTime.asSeconds());
-	m_seekerNPC.update(t_deltaTime.asSeconds());
-	m_arriveSlowNPC.update(t_deltaTime.asSeconds());
-	m_arriveFastNPC.update(t_deltaTime.asSeconds());
-	m_pursueNPC.update(t_deltaTime.asSeconds());*/
-	ships.at(m_shipEnabled).update(t_deltaTime.asSeconds());
+	if (m_shipEnabled == 5)
+	{
+		for (int i = 0; i < ships.size(); i++)
+		{
+			ships.at(i).update(t_deltaTime.asSeconds());
+		}
+	}
+	else
+	{
+		ships.at(m_shipEnabled).update(t_deltaTime.asSeconds());
+	}
 
 }
 
@@ -131,16 +145,35 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Black);
 	m_window.draw(m_player);
-	/*m_window.draw(m_wanderNPC);
-	m_window.draw(m_seekerNPC);
-	m_window.draw(m_arriveSlowNPC);
-	m_window.draw(m_arriveFastNPC);
-	m_window.draw(m_pursueNPC);*/
-	m_window.draw(ships.at(m_shipEnabled));
+	m_window.draw(m_message);
+	if (m_shipEnabled == 5)
+	{
+		for (int i = 0; i < ships.size(); i++)
+		{
+			m_window.draw(ships.at(i));
+		}
+	}
+	else
+	{
+		m_window.draw(ships.at(m_shipEnabled));
+	}
+	
 
 	m_window.display();
 }
 
 void Game::setupFontAndText()
 {
+	if (!m_ArialBlackfont.loadFromFile("Assets\\fonts\\ariblk.ttf"))
+	{
+		std::cout << "problem loading arial black font" << std::endl;
+	}
+
+	m_message.setFont(m_ArialBlackfont);
+	m_message.setString("Press 1-5 to enable a specific alien ship, and press 6 to enable all of the alien ships");
+	m_message.setPosition(0.0f, 0.0f);
+	m_message.setCharacterSize(32U);
+	m_message.setOutlineColor(sf::Color::White);
+	m_message.setFillColor(sf::Color::Black);
+	m_message.setOutlineThickness(3.0f);
 }

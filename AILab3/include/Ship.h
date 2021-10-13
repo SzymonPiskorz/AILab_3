@@ -31,10 +31,13 @@ public:
 	void setSpeed(float);
 	float getMaxSpeed();
 	float getMinNPCSpeed();
+	void setupFontAndText(std::string);
 
 private:
 
 	virtual void draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const;
+
+	void setVisionCone();
 
 	void handleBoundry();
 	void setTexture(int);
@@ -54,6 +57,9 @@ private:
 	Behaviour* m_behaviour;
 
 	Ship *m_targetPos;
+
+	sf::Font m_ArialBlackfont;
+	sf::Text m_shipName;
 };
 
 #include "Behaviour.h"
