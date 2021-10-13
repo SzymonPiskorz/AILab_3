@@ -9,7 +9,7 @@ class Ship : public sf::Drawable
 {
 public:
 	
-	Ship(float, float, float, float, Behaviour*, sf::Vector2f);
+	Ship(float, float, float, float, Behaviour*, sf::Vector2f, float t_maxSpped = 400);
 
 	virtual void update(float);
 

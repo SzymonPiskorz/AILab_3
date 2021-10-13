@@ -1,10 +1,10 @@
 #include "Ship.h"
 
-Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipType, Behaviour* t_beh, sf::Vector2f t_pos) :
+Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipType, Behaviour* t_beh, sf::Vector2f t_pos, float t_maxSpeed) :
 	m_speed(t_speed),
 	m_acceleration(t_acceleration),
 	m_rotSpeed(t_rotSpeed),
-	m_maxSpeed(400),
+	m_maxSpeed(t_maxSpeed),
 	m_minSpeed(-50),
 	m_behaviour(t_beh)
 {

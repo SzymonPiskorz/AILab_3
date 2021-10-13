@@ -7,11 +7,21 @@ Game::Game() :
 	m_player{ 0.0f, 5.0f, 0.5f, 1.0f, new ControllerBehaviour, sf::Vector2f(500.0f, 500.0f)},
 	m_wanderNPC{ 200.0f, 5.0f, 1.0f, 2.0f, new WanderBehaviour, sf::Vector2f(250.0f, 250.0f)},
 	m_seekerNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)},
-	m_arriveNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f)}
+	m_arriveSlowNPC{ 250.0f, 5.0f, 0.5f, 4.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 200},
+	m_arriveFastNPC{ 250.0f, 5.0f, 0.5f, 5.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 500},
+	m_pursueNPC{ 250.0f, 5.0f, 0.5f, 6.0f, new PursueBehaviour, sf::Vector2f(700.0f, 250.0f)}
 {
 	setupFontAndText(); // load font 
 	m_seekerNPC.setTargetPos(&m_player);
-	m_arriveNPC.setTargetPos(&m_player);
+	m_arriveSlowNPC.setTargetPos(&m_player);
+	m_arriveFastNPC.setTargetPos(&m_player);
+	m_pursueNPC.setTargetPos(&m_player);
+
+	ships.push_back(m_wanderNPC);
+	ships.push_back(m_seekerNPC);
+	ships.push_back(m_arriveSlowNPC);
+	ships.push_back(m_arriveFastNPC);
+	ships.push_back(m_pursueNPC);
 }
 
 /// <summary>
@@ -81,6 +91,17 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		m_shipEnabled = 0;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		m_shipEnabled = 1;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		m_shipEnabled = 2;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		m_shipEnabled = 3;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+		m_shipEnabled = 4;
 }
 
 /// <summary>
@@ -94,9 +115,12 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	m_player.update(t_deltaTime.asSeconds());
-	m_wanderNPC.update(t_deltaTime.asSeconds());
+	/*m_wanderNPC.update(t_deltaTime.asSeconds());
 	m_seekerNPC.update(t_deltaTime.asSeconds());
-	m_arriveNPC.update(t_deltaTime.asSeconds());
+	m_arriveSlowNPC.update(t_deltaTime.asSeconds());
+	m_arriveFastNPC.update(t_deltaTime.asSeconds());
+	m_pursueNPC.update(t_deltaTime.asSeconds());*/
+	ships.at(m_shipEnabled).update(t_deltaTime.asSeconds());
 
 }
 
@@ -107,9 +131,13 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Black);
 	m_window.draw(m_player);
-	m_window.draw(m_wanderNPC);
+	/*m_window.draw(m_wanderNPC);
 	m_window.draw(m_seekerNPC);
-	m_window.draw(m_arriveNPC);
+	m_window.draw(m_arriveSlowNPC);
+	m_window.draw(m_arriveFastNPC);
+	m_window.draw(m_pursueNPC);*/
+	m_window.draw(ships.at(m_shipEnabled));
+
 	m_window.display();
 }
 

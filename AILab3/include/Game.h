@@ -13,6 +13,7 @@
 #include "WanderBehaviour.h"
 #include "SeekBehaviour.h"
 #include "ArriveBehaviour.h"
+#include "PursueBehaviour.h"
 
 class Game
 {
@@ -43,7 +44,13 @@ private:
 	Ship m_player;
 	Ship m_wanderNPC;
 	Ship m_seekerNPC;
-	Ship m_arriveNPC;
+	Ship m_arriveSlowNPC;
+	Ship m_arriveFastNPC;
+	Ship m_pursueNPC;
+
+	std::vector<Ship> ships;
+
+	int m_shipEnabled = 0;
 };
 
 #endif // !GAME_HPP

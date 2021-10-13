@@ -24,6 +24,7 @@
     <ClInclude Include="include\ControllerBehaviour.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Global.h" />
+    <ClInclude Include="include\PursueBehaviour.h" />
     <ClInclude Include="include\SeekBehaviour.h" />
     <ClInclude Include="include\Ship.h" />
     <ClInclude Include="include\WanderBehaviour.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="src\ControllerBehaviour.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PursueBehaviour.cpp" />
     <ClCompile Include="src\SeekBehaviour.cpp" />
     <ClCompile Include="src\Ship.cpp" />
     <ClCompile Include="src\WanderBehaviour.cpp" />
