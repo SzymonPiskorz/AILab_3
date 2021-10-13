@@ -8,7 +8,7 @@ void PursueBehaviour::update(Ship* ship, float t_delaTime)
 	if (dist.x != 0 || dist.y != 0)
 	{
 		dist = dist / (sqrt((dist.x * dist.x) + (dist.y * dist.y)));
-		ship->setRotation(atan2f(dist.y, dist.x) * (180 / 3.14f));
+		//ship->setRotation(atan2f(dist.y, dist.x) * (180 / 3.14f));
 	}
 
 

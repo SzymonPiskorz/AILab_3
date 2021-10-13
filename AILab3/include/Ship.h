@@ -32,6 +32,8 @@ public:
 	float getMaxSpeed();
 	float getMinNPCSpeed();
 	void setupFontAndText(std::string);
+	void moveToTarget(sf::Vector2f, float );
+	void updateRotation();
 
 private:
 
@@ -51,6 +53,7 @@ private:
 	float m_rotSpeed;
 	float m_minSpeed;
 	float m_maxSpeed;
+	float m_direction;
 
 	sf::Vector2f m_position;
 
@@ -60,6 +63,13 @@ private:
 
 	sf::Font m_ArialBlackfont;
 	sf::Text m_shipName;
+
+	float m_visionDistance;
+	float m_visionAngle;
+	sf::Color col1;
+	sf::Color col2;
+	sf::VertexArray m_coneOfVision;
+
 };
 
 #include "Behaviour.h"

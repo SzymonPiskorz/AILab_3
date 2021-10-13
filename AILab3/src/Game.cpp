@@ -16,6 +16,9 @@ Game::Game() :
 	m_arriveSlowNPC.setTargetPos(&m_player);
 	m_arriveFastNPC.setTargetPos(&m_player);
 	m_pursueNPC.setTargetPos(&m_player);
+	m_wanderNPC.setTargetPos(&m_player);
+	m_player.setTargetPos(&m_player);
+	
 
 	m_player.setupFontAndText("Player");
 	m_wanderNPC.setupFontAndText("Wander");
@@ -172,7 +175,7 @@ void Game::setupFontAndText()
 	m_message.setFont(m_ArialBlackfont);
 	m_message.setString("Press 1-5 to enable a specific alien ship, and press 6 to enable all of the alien ships");
 	m_message.setPosition(0.0f, 0.0f);
-	m_message.setCharacterSize(32U);
+	m_message.setCharacterSize(28U);
 	m_message.setOutlineColor(sf::Color::White);
 	m_message.setFillColor(sf::Color::Black);
 	m_message.setOutlineThickness(3.0f);

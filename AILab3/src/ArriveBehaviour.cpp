@@ -33,7 +33,7 @@ void ArriveBehaviour::update(Ship* ship, float t_delaTime)
 				dir *= ship->getMaxSpeed();
 			}
 
-			ship->setRotation(atan2f(dir.y, dir.x) * (180.0f / 3.14f));
+			//ship->setRotation(atan2f(dir.y, dir.x) * (180.0f / 3.14f));
 		}
 	}
 }

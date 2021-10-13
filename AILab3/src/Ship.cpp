@@ -11,7 +11,11 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 	setTexture(t_shipType);
 	setPosition(t_pos);
 	setRotation(0);
-
+	m_direction = 0;
+	m_visionDistance = 200;
+	m_visionAngle = 45 * 3.141f * 180;
+	col1 = sf::Color(255, 255, 255, 200);
+	col2 = sf::Color(255, 255, 255, 50);
 }
 
 void Ship::update(float t_deltaTime)
@@ -19,9 +23,13 @@ void Ship::update(float t_deltaTime)
 	m_shipName.setPosition(getPosition() + sf::Vector2f(20, 20));
 	m_behaviour->update(this, t_deltaTime);
 
-	m_sprite.move(sf::Vector2f(m_velocity.x * m_speed * t_deltaTime, m_velocity.y * m_speed * t_deltaTime));
+	m_position += m_velocity * t_deltaTime;
+
+	m_sprite.setPosition(m_position);
 
 	handleBoundry();
+
+	setVisionCone();
 }
 
 sf::Vector2f const & Ship::getPosition() const
@@ -40,6 +48,8 @@ void Ship::accelerate()
 
 	if (m_speed > m_maxSpeed)
 		m_speed = m_maxSpeed;
+
+	m_velocity = (m_velocity / (sqrt((m_velocity.x * m_velocity.x) + (m_velocity.y * m_velocity.y)))) * m_speed;
 }
 
 void Ship::decelerate()
@@ -48,16 +58,22 @@ void Ship::decelerate()
 
 	if (m_speed < m_minSpeed)
 		m_speed = m_minSpeed;
+
+	m_velocity = (m_velocity / (sqrt((m_velocity.x * m_velocity.x) + (m_velocity.y * m_velocity.y)))) * m_speed;
 }
 
 void Ship::rotateL(float t_deltaTime)
 {
-	setRotation(m_sprite.getRotation() - m_speed * m_rotSpeed * t_deltaTime);
+	m_direction -= m_rotSpeed * t_deltaTime;
+	m_velocity = sf::Vector2f(cosf(m_direction), sinf(m_direction)) * m_speed;
+	updateRotation();
 }
 
 void Ship::rotateR(float t_deltaTime)
 {
-	setRotation(m_sprite.getRotation() + m_speed * m_rotSpeed * t_deltaTime);
+	m_direction += m_rotSpeed * t_deltaTime;
+	m_velocity = sf::Vector2f(cosf(m_direction), sinf(m_direction)) * m_speed;
+	updateRotation();
 }
 
 void Ship::setPosition(sf::Vector2f t_pos)
@@ -104,6 +120,8 @@ void Ship::draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const
 {
 	t_target.draw(m_shipName, t_states);
 	t_target.draw(m_sprite, t_states);
+
+
 }
 
 void Ship::handleBoundry()
@@ -151,7 +169,7 @@ void Ship::setupFontAndText(std::string t_string)
 	m_shipName.setFont(m_ArialBlackfont);
 	m_shipName.setString(t_string);
 	m_shipName.setPosition(getPosition()+sf::Vector2f(20, 20));
-	m_shipName.setCharacterSize(24U);
+	m_shipName.setCharacterSize(18U);
 	m_shipName.setOutlineColor(sf::Color::White);
 	m_shipName.setFillColor(sf::Color::Black);
 	m_shipName.setOutlineThickness(3.0f);
@@ -159,5 +177,45 @@ void Ship::setupFontAndText(std::string t_string)
 
 void Ship::setVisionCone()
 {
+	float min = atan2f(m_velocity.y, m_velocity.x) - m_visionAngle;
+	float max = atan2f(m_velocity.y, m_velocity.x) + m_visionAngle;
 
+	sf::Vector2f minVec = sf::Vector2f(cosf(min), sinf(min));
+	sf::Vector2f maxVec = sf::Vector2f(cosf(max), sinf(max));
+
+	float minCross = (minVec.x * (getTargetPos()->getPosition() - getPosition()).y) - (minVec.y * (getTargetPos()->getPosition() - getPosition()).x);
+	float maxCross = (maxVec.x * (getTargetPos()->getPosition() - getPosition()).y) - (maxVec.y * (getTargetPos()->getPosition() - getPosition()).x);
+	
+	sf::Vector2f distVec = getTargetPos()->getPosition() - getPosition();
+	
+	if (minCross > 0 && maxCross < 0)
+	{
+		
+		if (((distVec.x * distVec.x) + (distVec.y * distVec.y)) < m_visionDistance * m_visionDistance)
+		{
+			col1 = sf::Color(255, 0, 0, 255);
+			col2 = sf::Color(255, 0, 0, 255);
+			std::cout << "in vision" << std::endl;
+		}
+		else
+		{
+			col1 = sf::Color(0, 0, 255, 255);
+			col2 = sf::Color(0, 0, 255, 255);
+		}
+	}
+}
+
+void Ship::moveToTarget(sf::Vector2f t_target, float t_deltaTime)
+{
+	if (((m_velocity.x* m_velocity.x) + (m_velocity.y * m_velocity.y)) > m_maxSpeed * m_maxSpeed)
+	{
+		m_velocity = (m_velocity/(sqrt((m_velocity.x * m_velocity.x) + (m_velocity.y * m_velocity.y)))) * m_maxSpeed;
+	}
+
+	m_velocity += t_target * m_speed * t_deltaTime;
+}
+
+void Ship::updateRotation()
+{
+	m_sprite.setRotation((atan2f(m_velocity.y, m_velocity.x)) * (180.0f/ 3.14f));
 }
