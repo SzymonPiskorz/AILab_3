@@ -69,7 +69,7 @@ private:
 	float m_visionAngle;
 	sf::Color col1;
 	sf::Color col2;
-	sf::VertexArray m_coneOfVision;
+	sf::VertexArray m_coneOfVision{sf::TrianglesFan, 3};
 
 };
 

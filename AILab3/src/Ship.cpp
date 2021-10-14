@@ -13,7 +13,7 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 	setRotation(0);
 	m_direction = 0;
 	m_visionDistance = 200;
-	m_visionAngle = 45 * 3.141f * 180;
+	m_visionAngle = 45 * (3.141f / 180.0f);
 	col1 = sf::Color(255, 0, 0, 255);
 	col2 = sf::Color(255, 0, 0, 255);
 }
@@ -29,6 +29,9 @@ void Ship::update(float t_deltaTime)
 
 	handleBoundry();
 	updateRotation();
+
+	m_coneOfVision.clear();
+	m_coneOfVision.append(sf::Vertex{ m_position, col1 });
 	setVisionCone();
 }
 
@@ -120,8 +123,7 @@ void Ship::draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const
 {
 	t_target.draw(m_shipName, t_states);
 	t_target.draw(m_sprite, t_states);
-
-
+	t_target.draw(m_coneOfVision, t_states);
 }
 
 void Ship::handleBoundry()
@@ -180,6 +182,11 @@ void Ship::setVisionCone()
 	float min = atan2f(m_velocity.y, m_velocity.x) - m_visionAngle;
 	float max = atan2f(m_velocity.y, m_velocity.x) + m_visionAngle;
 
+	for (float angle = min; angle < max; angle += (5.0f * (3.141f/180.0f)))
+	{
+		m_coneOfVision.append(sf::Vertex( sf::Vector2f(cosf(angle) * m_visionDistance, sinf(angle) * m_visionDistance) + m_position, col2 ));
+	}
+
 	sf::Vector2f minVec = sf::Vector2f(cosf(min), sinf(min));
 	sf::Vector2f maxVec = sf::Vector2f(cosf(max), sinf(max));
 
@@ -193,16 +200,13 @@ void Ship::setVisionCone()
 		
 		if (((distVec.x * distVec.x) + (distVec.y * distVec.y)) < m_visionDistance * m_visionDistance)
 		{
-			col1 = sf::Color(255, 0, 0, 255);
-			col2 = sf::Color(255, 0, 0, 255);
-			std::cout << "in vision" << std::endl;
-		}
-		else
-		{
-			col1 = sf::Color(0, 0, 255, 255);
-			col2 = sf::Color(0, 0, 255, 255);
+			col1 = sf::Color(255, 0, 0, 50);
+			col2 = sf::Color(255, 0, 0, 50);
+			return;
 		}
 	}
+	col1 = sf::Color(0, 0, 255, 50);
+	col2 = sf::Color(0, 0, 255, 50);
 }
 
 void Ship::moveToTarget(sf::Vector2f t_target, float t_deltaTime)
