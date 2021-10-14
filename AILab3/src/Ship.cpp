@@ -217,6 +217,11 @@ void Ship::moveToTarget(sf::Vector2f t_target, float t_deltaTime)
 	}
 
 	m_velocity += t_target * m_speed * t_deltaTime;
+
+	if (m_speed == getMinNPCSpeed())
+	{
+		m_velocity = t_target * m_speed * t_deltaTime;
+	}
 }
 
 void Ship::updateRotation()

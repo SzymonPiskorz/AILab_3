@@ -14,12 +14,15 @@ void ArriveBehaviour::update(Ship* ship, float t_delaTime)
 		else
 		{
 			ship->setSpeed(ship->getMaxSpeed() * (mag / m_slowRadius));
-			sf::Vector2f unitVec = dist / mag;
-
-			//if (mag < m_stopRadius)
-				//ship->moveToTarget(unitVec / 100.0f, t_delaTime);
-			//else
-				ship->moveToTarget(unitVec, t_delaTime);
 		}
+
+		sf::Vector2f unitVec = dist / mag;
+
+		if (mag < m_stopRadius)
+		{
+			ship->moveToTarget(unitVec / 100.0f, t_delaTime);
+		}
+		else
+			ship->moveToTarget(unitVec, t_delaTime);
 	}
 }
