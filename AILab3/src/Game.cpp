@@ -4,7 +4,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ WINDOW_WIDTH, WINDOW_HEIGHT, 32U }, "AI Lab 3" },
 	m_exitGame{ false },
-	m_player{ 0.0f, 5.0f, 0.5f, 1.0f, new ControllerBehaviour, sf::Vector2f(500.0f, 500.0f)},
+	m_player{ 0.0f, 5.0f, 2.0f, 1.0f, new ControllerBehaviour, sf::Vector2f(500.0f, 500.0f)},
 	m_wanderNPC{ 200.0f, 5.0f, 1.0f, 2.0f, new WanderBehaviour, sf::Vector2f(250.0f, 250.0f)},
 	m_seekerNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)},
 	m_arriveSlowNPC{ 250.0f, 5.0f, 0.5f, 4.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 200},

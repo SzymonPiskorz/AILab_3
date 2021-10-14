@@ -2,7 +2,7 @@
 
 void WanderBehaviour::update(Ship* ship, float t_delaTime)
 {
-	if (timer.getElapsedTime().asSeconds() > 1)
+	/*if (timer.getElapsedTime().asSeconds() > 1)
 	{
 		timer.restart();
 
@@ -10,5 +10,19 @@ void WanderBehaviour::update(Ship* ship, float t_delaTime)
 			ship->rotateL(t_delaTime);
 		else
 			ship->rotateR(t_delaTime);
+	}*/
+
+	if (ship->getPosition() != target)
+	{
+
 	}
+	else
+	{
+
+	}
+}
+
+void WanderBehaviour::pickTarget()
+{
+
 }

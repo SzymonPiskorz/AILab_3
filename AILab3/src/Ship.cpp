@@ -5,7 +5,7 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 	m_acceleration(t_acceleration),
 	m_rotSpeed(t_rotSpeed),
 	m_maxSpeed(t_maxSpeed),
-	m_minSpeed(-50),
+	m_minSpeed(0.01f),
 	m_behaviour(t_beh)
 {
 	setTexture(t_shipType);
@@ -28,7 +28,7 @@ void Ship::update(float t_deltaTime)
 	m_sprite.setPosition(m_position);
 
 	handleBoundry();
-
+	updateRotation();
 	setVisionCone();
 }
 
@@ -107,7 +107,7 @@ float Ship::getMaxSpeed()
 
 float Ship::getMinNPCSpeed()
 {
-	return 0.0f;
+	return 0.01f;
 }
 
 Ship* Ship::getTargetPos() const
@@ -218,4 +218,9 @@ void Ship::moveToTarget(sf::Vector2f t_target, float t_deltaTime)
 void Ship::updateRotation()
 {
 	m_sprite.setRotation((atan2f(m_velocity.y, m_velocity.x)) * (180.0f/ 3.14f));
+}
+
+float Ship::getHeading()
+{
+	return m_direction;
 }

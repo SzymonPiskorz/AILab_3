@@ -43,6 +43,7 @@ private:
 
 	void handleBoundry();
 	void setTexture(int);
+	float getHeading();
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
