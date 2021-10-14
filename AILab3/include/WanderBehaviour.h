@@ -7,8 +7,13 @@ class WanderBehaviour : public Behaviour
 
 	sf::Clock timer;
 
-	sf::Vector2f target;
+	sf::Vector2f target = sf::Vector2f(NULL, NULL);
 
-	void pickTarget();
+
+	void pickTarget(Ship* ship);
+
+	float m_targetCentre = 100;
+	float m_targetRadius = 100;
+	float m_restartTime = 0;
 };
 

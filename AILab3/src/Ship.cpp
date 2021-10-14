@@ -14,8 +14,8 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 	m_direction = 0;
 	m_visionDistance = 200;
 	m_visionAngle = 45 * 3.141f * 180;
-	col1 = sf::Color(255, 255, 255, 200);
-	col2 = sf::Color(255, 255, 255, 50);
+	col1 = sf::Color(255, 0, 0, 255);
+	col2 = sf::Color(255, 0, 0, 255);
 }
 
 void Ship::update(float t_deltaTime)
