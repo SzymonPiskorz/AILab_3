@@ -34,6 +34,8 @@ public:
 	void setupFontAndText(std::string);
 	void moveToTarget(sf::Vector2f, float );
 	void updateRotation();
+	void setMaxSpeed(float);
+	float getOrgMaxSpeed();
 
 private:
 
@@ -54,7 +56,9 @@ private:
 	float m_rotSpeed;
 	float m_minSpeed;
 	float m_maxSpeed;
+	float m_orgMaxSpeed;
 	float m_direction;
+
 
 	sf::Vector2f m_position;
 

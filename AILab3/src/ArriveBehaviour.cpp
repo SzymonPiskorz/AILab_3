@@ -8,12 +8,12 @@ void ArriveBehaviour::update(Ship* ship, float t_delaTime)
 		float mag = sqrt((dist.x * dist.x) + (dist.y * dist.y));
 
 		if (mag < m_stopRadius)
-			ship->setSpeed(ship->getMinNPCSpeed());
+			ship->setMaxSpeed(ship->getMinNPCSpeed());
 		else if (mag > m_slowRadius)
-			ship->setSpeed(ship->getMaxSpeed());
+			ship->setMaxSpeed(ship->getOrgMaxSpeed());
 		else
 		{
-			ship->setSpeed(ship->getMaxSpeed() * (mag / m_slowRadius));
+			ship->setMaxSpeed(ship->getOrgMaxSpeed() * mag / m_slowRadius);
 		}
 
 		sf::Vector2f unitVec = dist / mag;

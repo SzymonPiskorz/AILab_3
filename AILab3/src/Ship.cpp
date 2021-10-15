@@ -16,6 +16,8 @@ Ship::Ship(float t_speed, float t_acceleration, float t_rotSpeed, float t_shipTy
 	m_visionAngle = 45 * (3.141f / 180.0f);
 	col1 = sf::Color(255, 0, 0, 255);
 	col2 = sf::Color(255, 0, 0, 255);
+
+	m_orgMaxSpeed = m_maxSpeed;
 }
 
 void Ship::update(float t_deltaTime)
@@ -106,6 +108,11 @@ void Ship::setSpeed(float t_speed)
 float Ship::getMaxSpeed()
 {
 	return m_maxSpeed;
+}
+
+float Ship::getOrgMaxSpeed()
+{
+	return m_orgMaxSpeed;
 }
 
 float Ship::getMinNPCSpeed()
@@ -217,16 +224,16 @@ void Ship::moveToTarget(sf::Vector2f t_target, float t_deltaTime)
 	}
 
 	m_velocity += t_target * m_speed * t_deltaTime;
-
-	if (m_speed == getMinNPCSpeed())
-	{
-		m_velocity = t_target * m_speed * t_deltaTime;
-	}
 }
 
 void Ship::updateRotation()
 {
 	m_sprite.setRotation((atan2f(m_velocity.y, m_velocity.x)) * (180.0f/ 3.14f));
+}
+
+void Ship::setMaxSpeed(float t_speed)
+{
+	m_maxSpeed =  t_speed;
 }
 
 float Ship::getHeading()

@@ -5,11 +5,11 @@ Game::Game() :
 	m_window{ sf::VideoMode{ WINDOW_WIDTH, WINDOW_HEIGHT, 32U }, "AI Lab 3" },
 	m_exitGame{ false },
 	m_player{ 0.01f, 5.0f, 2.0f, 1.0f, new ControllerBehaviour, sf::Vector2f(500.0f, 500.0f)},
-	m_wanderNPC{ 200.0f, 5.0f, 1.0f, 2.0f, new WanderBehaviour, sf::Vector2f(250.0f, 250.0f)},
-	m_seekerNPC{ 250.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)},
+	m_wanderNPC{ 400.0f, 5.0f, 1.0f, 2.0f, new WanderBehaviour, sf::Vector2f(250.0f, 250.0f)},
+	m_seekerNPC{ 500.0f, 5.0f, 0.5f, 3.0f, new SeekBehaviour, sf::Vector2f(700.0f, 250.0f)},
 	m_arriveSlowNPC{ 250.0f, 5.0f, 0.5f, 4.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 200},
-	m_arriveFastNPC{ 250.0f, 5.0f, 0.5f, 5.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 500},
-	m_pursueNPC{ 250.0f, 5.0f, 0.5f, 6.0f, new PursueBehaviour, sf::Vector2f(700.0f, 250.0f)}
+	m_arriveFastNPC{ 400.0f, 5.0f, 0.5f, 5.0f, new ArriveBehaviour, sf::Vector2f(700.0f, 250.0f), 500},
+	m_pursueNPC{ 450.0f, 5.0f, 0.5f, 6.0f, new PursueBehaviour, sf::Vector2f(700.0f, 250.0f)}
 {
 	setupFontAndText(); // load font 
 	m_seekerNPC.setTargetPos(&m_player);
@@ -173,7 +173,7 @@ void Game::setupFontAndText()
 	}
 
 	m_message.setFont(m_ArialBlackfont);
-	m_message.setString("Press 1-5 to enable a specific alien ship, and press 6 to enable all of the alien ships");
+	m_message.setString("Press 1-5 to enable a specific alien ship, and press 6 to enable all of the alien ships \n 1. Wander \n 2. Seeker \n 3. Arrive Slow \n 4. Arrive Fast \n 5. Pursue");
 	m_message.setPosition(0.0f, 0.0f);
 	m_message.setCharacterSize(28U);
 	m_message.setOutlineColor(sf::Color::White);
